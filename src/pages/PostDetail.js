@@ -49,7 +49,7 @@ const PostDetail = (props) => {
       <React.Fragment>
         <Grid padding="20px 25%">
           {post && (
-            <Post {...post} is_me={post.user_info.user_id === user_info.uid} />
+            <Post {...post} is_me={post.user_info.user_id === user_info?.uid} />
           )}
         <CommentWrite />
         <CommentList />
