@@ -4,7 +4,7 @@ import Upload from "../shared/Upload";
 
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-import { actionCreators as imageActions } from "../redux/modules/image";
+import image, { actionCreators as imageActions } from "../redux/modules/image";
 
 const PostWrite = (props) => {
   const dispatch = useDispatch();
@@ -20,7 +20,6 @@ const PostWrite = (props) => {
   let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
   const [contents, setContents] = React.useState(_post ? _post.contents : "");
   const [layout, setLayout] = React.useState("");
-
   React.useEffect(() => {
     if (is_edit && !_post) {
       window.alert("포스트 정보가 없어요!")
@@ -39,9 +38,9 @@ const PostWrite = (props) => {
   };
 
   const addPost = () => {
-    if (contents === "") {
+    if (contents === ""|| layout === "") {
       window.alert(
-        "게시글 작성란이 비어있거나 이미지가 선택되지 않았습니다. 확인해주세요!"
+        "게시글 작성란이 비어있거나 레이아웃이 선택되지 않았습니다. 확인해주세요!"
       );
       return;
     }
@@ -49,20 +48,21 @@ const PostWrite = (props) => {
   };
 
   const editPost = () => {
-    if (contents === "") {
+    if (contents === "" || layout === "") {
       window.alert(
-        "게시글 작성란이 비어있거나 이미지가 선택되지 않았습니다. 확인해주세요!"
+        "게시글 작성란이 비어있거나 레이아웃이 선택되지 않았습니다. 확인해주세요!"
       );
       return;
     }
+
     dispatch(
-      postActions.editPostFB(post_id, { contents: contents, layout: layout })
+      postActions.editPostFB(post_id, {contents},layout)
     );
   };
 
   if (!is_login) {
     return (
-      <Grid margin="100px 0px" padding="16px" center>
+      <Grid padding="20px 25%">
         <Text size="32px" bold>
           앗! 잠깐!
         </Text>
@@ -80,14 +80,14 @@ const PostWrite = (props) => {
   }
   return (
     <React.Fragment>
-      <Grid padding="16px">
+      <Grid padding="20px 25%">
         <Text margin="0px" size="36px" bold>
           {is_edit ? "게시글 수정" : "게시글 작성"}
         </Text>
         <Upload />
       </Grid>
 
-      <Grid>
+      <Grid padding="20px 25%">
         <Grid>
           <Text margin="0px" size="24px" bold>
             미리보기
@@ -97,14 +97,17 @@ const PostWrite = (props) => {
           <Grid>
             <Input
               type="radio"
+              radio={true}
               name="layout"
               value="right"
               label="이미지가 오른쪽"
-              _onClick={() => {}}
+              _onClick={() => {
+                setLayout("right");
+              }}
             />
           </Grid>
           <Grid is_flex>
-            <Text>{contents ? contents : "텍스트"}</Text>
+            <Text margin="0px" size="20px" bold>{contents ? contents : "텍스트"}</Text>
             <Image
               shape="rectangle"
               src={preview ? preview : "http://via.placeholder.com/400x300"}
@@ -114,10 +117,13 @@ const PostWrite = (props) => {
         <Grid>
           <Input
             type="radio"
+            radio={true}
             name="layout"
             value="left"
             label="이미지가 왼쪽"
-            _onClick={() => {}}
+            _onClick={() => {
+              setLayout("left");
+            }}
           />
           <Grid is_flex>
             <Image
@@ -125,7 +131,7 @@ const PostWrite = (props) => {
               size="30%"
               src={preview ? preview : "http://via.placeholder.com/400x300"}
             ></Image>
-            <Text margin="0px" size="36px" bold>
+            <Text margin="0px" size="20px" bold>
               {contents ? contents : "텍스트"}
             </Text>
           </Grid>
@@ -133,13 +139,16 @@ const PostWrite = (props) => {
         <Grid>
           <Input
             type="radio"
+            radio={true}
             name="layout"
             value="center"
             label="가운데 정렬"
-            _onClick={() => {}}
+            _onClick={() => {
+              setLayout("center");
+            }}
           />
           <Grid>
-            <Text margin="0px" size="36px" bold>
+            <Text margin="0px" size="20px" bold>
               {contents ? contents : "텍스트"}
             </Text>
             <Image
@@ -151,7 +160,7 @@ const PostWrite = (props) => {
         </Grid>
       </Grid>
 
-      <Grid padding="16px">
+      <Grid padding="20px 25%">
         <Input
           value={contents}
           _onChange={changeContents}
@@ -161,7 +170,7 @@ const PostWrite = (props) => {
         />
       </Grid>
 
-      <Grid padding="16px">
+      <Grid padding="20px 25%">
         {is_edit ? (
           <Button text="게시글 수정" _onClick={editPost}></Button>
         ) : (

@@ -1,3 +1,4 @@
+import { connectStorageEmulator } from "firebase/storage";
 import React from "react";
 import styled from "styled-components";
 
@@ -5,7 +6,6 @@ import { Text, Grid } from "./index";
 
 const Input = (props) => {
   const { label, placeholder, _onChange, type, multiLine, value, radio ,name, _onClick } = props;
-  console.log(name)
 
   if (multiLine) {
     return (
@@ -20,10 +20,12 @@ const Input = (props) => {
       </Grid>
     );
   }
+  
   if (radio) {
     return (
-      <Grid>
-        <ElRadio type="radio" name="layout" value={value} onChange={_onClick}>레이아웃</ElRadio>
+      <Grid width="300px">
+        <ElRadio type="radio" name={name} value={value} onChange={_onClick}/>
+        {label && <Text margin="0px">{label}</Text>}
       </Grid>
     );
   }
@@ -57,6 +59,10 @@ const ElTextarea = styled.textarea`
 `;
 
 const ElRadio = styled.input`
+  border: 1px solid #212121;
+  /* width: 10p; */
+  /* margin: */
+  box-sizing: border-box;
 `;
 
 const ElInput = styled.input`

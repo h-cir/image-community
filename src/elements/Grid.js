@@ -35,6 +35,7 @@ const GridBox = styled.div`
       ? `display: flex; align-items: center; justify-content: space-between; `
       : ""}
           ${(props) => (props.center ? `text-align: center;` : "")}
+          @media only screen and (max-width: 768px) { padding: 5px; } ;
 `;
 
 export default Grid;

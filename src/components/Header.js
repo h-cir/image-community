@@ -16,7 +16,7 @@ const Header = (props) => {
   if (is_login && is_session) {
     return (
       <React.Fragment>
-        <Grid is_flex padding="4px 16px">
+        <Grid is_flex padding="20px 25%">
           <Grid>
             <Text margin="0px" size="24px" bold _onClick={() => {
                 history.push("/");
@@ -46,7 +46,7 @@ const Header = (props) => {
   }
   return (
     <React.Fragment>
-      <Grid is_flex padding="4px 16px">
+      <Grid is_flex padding="20px 25%">
         <Grid>
           <Text class="mouse" margin="0px" size="24px" bold _onClick={() => {
                 history.push("/");

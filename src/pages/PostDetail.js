@@ -5,6 +5,7 @@ import CommentWrite from "../components/CommentWrite";
 import {useSelector} from "react-redux";
 import { firestore } from "../shared/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import {Grid} from "../elements";
 
 const PostDetail = (props) => {
     const id = props.match.params.id;
@@ -46,12 +47,13 @@ const PostDetail = (props) => {
 
     return (
       <React.Fragment>
-        {post && (
-          <Post {...post} is_me={post.user_info.user_id === user_info.uid} />
-        )}
-
+        <Grid padding="20px 25%">
+          {post && (
+            <Post {...post} is_me={post.user_info.user_id === user_info.uid} />
+          )}
         <CommentWrite />
         <CommentList />
+        </Grid>
       </React.Fragment>
     );
 }

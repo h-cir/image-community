@@ -4,7 +4,7 @@ import {Grid, Image, Text} from "../elements";
 const CommentList = () => {
   return (
     <React.Fragment>
-      <Grid padding="16px">
+      <Grid>
         <CommentItem />
         <CommentItem />
         <CommentItem />

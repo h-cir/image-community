@@ -132,7 +132,7 @@ const addPostFB = (contents = "", layout="") => {
   };
 };
 
-const editPostFB = (post_id = null, post = {}) => {
+const editPostFB = (post_id = null, post = {}, layout="") => {
   return function (dispatch, getState, { history }) {
     if (!post_id) {
       console.log("게시물 정보가 없어요!");
@@ -142,6 +142,7 @@ const editPostFB = (post_id = null, post = {}) => {
 
     const _post_idx = getState().post.list.findIndex((p) => p.id === post_id);
     const _post = getState().post.list[_post_idx];
+    post = {...post,layout};
 
     const postRef = doc(firestore, "post", post_id);
 
